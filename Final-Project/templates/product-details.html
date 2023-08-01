@@ -1,0 +1,380 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    <title>Tmart-{{product.title}}</title>
+{% endblock %}
+{% block content %}
+        <!-- End Offset Wrapper -->
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
+            <div class="ht__bradcaump__wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="bradcaump__inner text-center">
+                                <h2 class="bradcaump-title">{% trans 'Product Details' %}</h2>
+                                <nav class="bradcaump-inner">
+                                  <a class="breadcrumb-item" href="{% url 'home' %}">{% trans 'Home' %}</a>
+                                  <span class="brd-separetor">/</span>
+                                  <span class="breadcrumb-item active">{% trans 'Product Details' %}</span>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+        <!-- Start Product Details -->
+        <section class="htc__product__details pt--120 pb--100 bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12" id="product">
+                        {% if product.in_stock == True %}
+                        <div class="product__details__container">
+                            <!-- Start Small images -->               
+                            <ul class="product__small__images" role="tablist" id="SmallImages">                            
+                                {% for p in product.images.all %}
+                                {% if forloop.counter == 1 %}
+                                <li role="presentation" class="pot-small-img active" aria-expanded="true">
+                                    <a href="#img-tab-{{ forloop.counter }}" role="tab" data-toggle="tab">
+                                        <img src="{{p.image.url}}" alt="small-image" height="170"  width="210">
+                                    </a>
+                                </li>
+                            {% elif forloop.counter == 2 %}
+                                <li role="presentation" class="pot-small-img"  width="250" height="170">
+                                    <a href="#img-tab-{{ forloop.counter }}" role="tab" data-toggle="tab">
+                                        <img src="{{p.image.url}}" alt="small-image" width="210" height="150" >
+                                    </a>
+                                </li>
+                            {% elif forloop.counter == 3 %}
+                                <li role="presentation" class="pot-small-img hidden-xs"   width="210" height="170">
+                                    <a href="#img-tab-{{ forloop.counter }}" role="tab" data-toggle="tab">
+                                        <img src="{{p.image.url}}" alt="small-image" width="210" height="170">
+                                    </a>
+                                </li>
+                            {% elif forloop.counter == 4 %}
+                                <li role="presentation" class="pot-small-img hidden-xs hidden-sm"  width="210" height="170">
+                                    <a href="#img-tab-{{ forloop.counter }}" role="tab" data-toggle="tab">
+                                        <img src="{{p.image.url}}" alt="small-image"  width="210" height="170">
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% endfor %}
+                            </ul> 
+                       
+                            <!-- End Small images -->
+                            <div class="product__big__images">
+                                <div class="portfolio-full-image tab-content" >
+                                    <div role="tabpanel" class="tab-pane fade in active product-video-position" id="img-tab-{{forloop.counter}}">
+                                        <img src="{{product.main_image.url}}" alt="full-image" width="400">
+                                        <!-- <div class="product-video">
+                                            <a class="video-popup" href="https://www.youtube.com/watch?v=cDDWvj_q-o8">
+                                                <i class="zmdi zmdi-videocam"></i>{% trans 'View Video' %}
+                                            </a>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 smt-30 xmt-30">
+                        <div class="htc__product__details__inner">
+                            <div class="pro__detl__title">
+                                <h2>{{product.product.title}}</h2>
+                            </div>
+                            <div class="pro__dtl__rating">
+                                <div class="rating-star">
+                                    <span title="{{ product.product.average_rating }}/5">
+                                    <!-- By default the star is full else it is empty otherwise it is half -->
+                                        <i class="fa fa-star{% if  product.product.average_rating < 0.5%}-o{% elif  product.product.average_rating >= 0.5 and  product.product.average_rating < 1 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if  product.product.average_rating < 1.5%}-o{% elif  product.product.average_rating >= 1.5 and  product.product.average_rating < 2 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if   product.product.average_rating < 2.5%}-o{% elif  product.product.average_rating >= 2.5 and  product.product.average_rating < 3 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if   product.product.average_rating < 3.5%}-o{% elif product.product.average_rating >= 3.5 and  product.product.average_rating < 4 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if   product.product.average_rating < 4.5%}-o{% elif  product.product.average_rating >= 4.5 and  product.product.average_rating < 5 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+
+                                {% with product.product.review.count as total_rating %}
+                                <span class="rat__qun">({% trans 'Based on' %} {{total_rating}} {% trans 'Rating' %}{% if request.LANGUAGE_CODE == 'en' %}{{total_rating|pluralize}}{% endif %})</span>                       
+                                {% endwith %}                                
+                            </div>
+                            <div class="pro__details">
+                                    <p>{{product.product.small_description}}</p>
+                                <ul class="pro__dtl__prize">
+                                    {% if product.product.old_price %}
+                                    <li class="old__prize">${{product.product.old_price}}</li>
+                                    {% endif %}
+                                    <li>${{product.product.price}}</li>
+                                </ul>
+                            </div>
+                            <div class="pro__dtl__color">
+                                <h2 class="title__5">{% trans 'Choose Colour' %}</h2>
+                                <ul class="pro__choose__color" id="DetailPageColorFilter">
+                                    
+                                </ul>
+                            </div>
+                            <div class="pro__dtl__size">
+                                <h2 class="title__5">{% trans 'Choose color to see size' %}</h2>
+                                <ul class="pro__choose__size" id="DetailPageSizeFilter">
+                                    
+                                </ul>
+                            </div>
+                            <div class="product-action-wrap">
+                                <div class="prodict-statas"><span>{% trans 'Quantity' %} :</span></div>
+                                <div class="product-quantity">
+                                    <form id='myform' method='POST' action='#'>
+                                        <div class="product-quantity">
+                                            <div class="cart-plus-minus">
+                                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="02">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <ul class="pro__dtl__btn">
+                                <li class="buy__now__btn"><a href="#">{% trans 'buy now' %}</a></li>
+                                <li id="WishHeart"><a  href="#"><span class="ti-heart"></span></a></li>
+                                <li><a href="{% url 'contact' %}"><span class="ti-email"></span></a></li>
+                            </ul>
+                            <div class="pro__social__share">
+                                <h2>{% trans 'Share' %} :</h2>
+                                <ul class="pro__soaial__link">
+                                    <li><a href="#"><i class="zmdi zmdi-twitter"></i></a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-instagram"></i></a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-facebook"></i></a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Product Details -->
+        <!-- Start Product tab -->
+        <section class="htc__product__details__tab bg__white pb--120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <ul class="product__deatils__tab mb--60" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#description" role="tab" data-toggle="tab">{% trans 'Description' %}</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#sheet" role="tab" data-toggle="tab">{% trans 'Data sheet' %}</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#reviews" role="tab" data-toggle="tab">{% trans 'Reviews' %}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product__details__tab__content">
+                            <!-- Start Single Content -->
+                            <div role="tabpanel" id="description" class="product__tab__content fade in active">
+                                <div class="product__description__wrap">
+                                    <div class="product__desc">
+                                        <h2 class="title__6">{% trans 'Details' %}</h2>
+                                        <p>{{product.product.large_description}}</p>
+                                    </div>
+                                    <div class="pro__feature">
+                                        <h2 class="title__6">{% trans 'Features' %}</h2>
+                                        <ul class="feature__list">
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Duis aute irure dolor in reprehenderit in voluptate velit esse' %}</a></li>
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Irure dolor in reprehenderit in voluptate velit esse' %}</a></li>
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Sed do eiusmod tempor incididunt ut labore et' %} </a></li>
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Nisi ut aliquip ex ea commodo consequat' %}.</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content -->
+                            <!-- Start Single Content -->
+                            <div role="tabpanel" id="sheet" class="product__tab__content fade">
+                                <div class="pro__feature">
+                                        <h2 class="title__6">{% trans 'Data sheet' %}</h2>
+                                        <ul class="feature__list">
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Duis aute irure dolor in reprehenderit in voluptate velit esse' %}</a></li>
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Irure dolor in reprehenderit in voluptate velit esse' %}</a></li>
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Irure dolor in reprehenderit in voluptate velit esse' %}</a></li>
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Irure dolor in reprehenderit in voluptate velit esse' %}</a></li>
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Irure dolor in reprehenderit in voluptate velit esse' %}</a></li>
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Irure dolor in reprehenderit in voluptate velit esse' %}.</a></li>
+                                            <li><a href="#"><i class="zmdi zmdi-play-circle"></i>{% trans 'Irure dolor in reprehenderit in voluptate velit esse' %}.</a></li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- End Single Content -->
+                            <!-- Start Single Content -->
+                            <div role="tabpanel" id="reviews" class="product__tab__content fade">
+                                <div class="review__address__inner" >
+                                    <!-- Start Single Review -->
+                                    {% for review in reviews %}
+                                    <div class="pro__review" >
+                                        <div class="review__thumb">
+                                            <img src="{% static '/images/download.png' %}" alt="review images" width="100" height="100">
+                                        </div>
+                                        <div class="review__details">
+                                            <div class="review__info">
+                                                <h4><a href="#">{{review.user}}</a></h4>
+                                                <div class="rating">
+                                                    <div class="rating-star">
+                                                        <span title="{{ review.rating }}/5">
+                                                        <!-- By default the star is full else it is empty otherwise it is half -->
+                                                            <i class="fa fa-star{% if review.rating < 0.5%}-o{% elif review.rating >= 0.5 and review.rating < 1 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                                            <i class="fa fa-star{% if review.rating < 1.5%}-o{% elif review.rating >= 1.5 and review.rating < 2 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                                            <i class="fa fa-star{% if review.rating < 2.5%}-o{% elif review.rating >= 2.5 and review.rating < 3 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                                            <i class="fa fa-star{% if review.rating < 3.5%}-o{% elif review.rating >= 3.5 and review.rating < 4 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                                            <i class="fa fa-star{% if review.rating < 4.5%}-o{% elif review.rating >= 4.5 and review.rating < 5 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="rating__send">
+                                                    <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
+                                                    <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                </div> -->
+                                            </div>
+                                            <div class="review__date">
+                                                <span>{{review.created_at|date:"d  F Y"}} at {{review.created_at|date:"H : i A"}}</span>
+                                            </div>
+                                            <p>{{review.review}}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <!-- End Single Review -->
+                                    <!-- Start Single Review -->
+                                    <div class="pro__review ans" id="review">
+                                        <!-- <div class="review__thumb">
+                                            <img src="{% static 'images/review/2.jpg' %}" alt="review images">
+                                        </div>
+                                        <div class="review__details">
+                                            <div class="review__info">
+                                                <h4><a href="#">Gerald Barnes</a></h4>
+                                                <ul class="rating">
+                                                    <li><i class="zmdi zmdi-star"></i></li>
+                                                    <li><i class="zmdi zmdi-star"></i></li>
+                                                    <li><i class="zmdi zmdi-star"></i></li>
+                                                    <li><i class="zmdi zmdi-star-half"></i></li>
+                                                    <li><i class="zmdi zmdi-star-half"></i></li>
+                                                </ul>
+                                                <div class="rating__send">
+                                                    <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
+                                                    <a href="#"><i class="zmdi zmdi-close"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="review__date">
+                                                <span>27 Jun, 2016 at 2:30pm</span>
+                                            </div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at estei to bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
+                                        </div> -->
+                                    </div>
+                                    <!-- End Single Review -->
+                                </div>
+                                <div class="review__address__inner"  >     
+                                    
+                                </div>
+                                <!-- Start RAting Area -->
+                                {% if request.user.is_authenticated %}
+                                <div class="rating__wrap">
+                                    <h2 class="rating-title">{% trans 'Write  A review' %}</h2>
+                                    <h4 class="rating-title-2">{% trans 'Your Rating' %}</h4>                                  
+                                </div>
+                                <!-- End RAting Area -->               
+                                <div class="review__box">
+                                    <form action="{{product.get_absolute_url}}" id="ReviewCreationForm" method="post">
+                                        <!-- {% include 'messages.html' %} -->
+                                        {% csrf_token %}
+                                        <div  id="review_success" >                                                                  
+                                        </div>
+                                        <div  id="review_alert">                                 
+                                        </div> 
+                                        <div class="single-review-form">                  
+                                            <div class="rate" >
+                                                <fieldset class="rate">                                                   
+                                                    <input type="radio" name="rating" id="rating10" value="5"  /><label for="rating10" title="5"></label>
+                                                    <input type="radio" name="rating" id="rating9" value="4.5"  /><label for="rating9" title="4.5" class="half"></label>
+                                                    <input type="radio" name="rating" id="rating8" value="4"  /><label for="rating8" title="4"></label>
+                                                    <input type="radio" name="rating" id="rating7" value="3.5"  /><label for="rating7" title="3.5" class="half"></label>
+                                                    <input type="radio" name="rating" id="rating6" value="3" /><label for="rating6" title="3"></label>
+                                                    <input type="radio" name="rating" id="rating5" value="2.5"  /><label for="rating5" title="2.5" class="half"></label>
+                                                    <input type="radio" name="rating" id="rating4" value="2"  /><label for="rating4" title="2"></label>
+                                                    <input type="radio" name="rating" id="rating3" value="1.5" /><label for="rating3" title="1.5" class="half"></label>
+                                                    <input type="radio" name="rating" id="rating2" value="1"  /><label for="rating2" title="1"></label>
+                                                    <input type="radio" name="rating" id="rating1" value="0.5" /><label for="rating1" title="0.5" class="half"></label>
+                                                  </fieldset>                                               
+                                            </div>
+                                        </div>
+                                        <div  class="single-review-form">
+                                            <div class="review-box message">
+                                                <textarea name="review" placeholder="Write your review"></textarea>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="product" value="{{ product.product.id }}">                                       
+                                        <div class="contact-btn">
+                                            <button type="submit" class="fv-btn">SEND</button>
+                                        </div>
+                                        <!-- {% for field in form %}
+                                            {% for error in field.errors %} 
+                                                <div class="alert alert-danger">
+                                                    <strong>{{ error|escape }}</strong>
+                                                </div>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        <div class="single-review-form">                  
+                                            <div class="rate" >
+                                                <fieldset class="rate">                                                   
+                                                    <input type="radio" name="rating" id="rating10" value="5"  /><label for="rating10" title="5"></label>
+                                                    <input type="radio" name="rating" id="rating9" value="4.5"  /><label for="rating9" title="4.5" class="half"></label>
+                                                    <input type="radio" name="rating" id="rating8" value="4"  /><label for="rating8" title="4"></label>
+                                                    <input type="radio" name="rating" id="rating7" value="3.5"  /><label for="rating7" title="3.5" class="half"></label>
+                                                    <input type="radio" name="rating" id="rating6" value="3" /><label for="rating6" title="3"></label>
+                                                    <input type="radio" name="rating" id="rating5" value="2.5"  /><label for="rating5" title="2.5" class="half"></label>
+                                                    <input type="radio" name="rating" id="rating4" value="2"  /><label for="rating4" title="2"></label>
+                                                    <input type="radio" name="rating" id="rating3" value="1.5" /><label for="rating3" title="1.5" class="half"></label>
+                                                    <input type="radio" name="rating" id="rating2" value="1"  /><label for="rating2" title="1"></label>
+                                                    <input type="radio" name="rating" id="rating1" value="0.5" /><label for="rating1" title="0.5" class="half"></label>
+                                                  </fieldset>                                               
+                                            </div>
+                                        </div>
+                                        <div class="single-review-form">
+                                            <div class="review-box message">
+                                                {{form.review}}
+                                                {{form.review.errors}}
+                                            </div>
+                                        </div>                                       
+                                        <div class="review-btn">
+                                           <a class="fv-btn" href="{{product.get_absolute_url}}"><button type="submit">{% trans 'submit review' %}</button></a>
+                                        </div> -->
+                                        
+                                    </form>                                
+                                </div>
+                                {% endif %}
+                            </div>
+                            <!-- End Single Content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Product tab -->
+        <!-- Start Footer Area -->
+        <!-- End Footer Area -->
+        <script src="{% static 'js/api/product-details.js' %}"></script>
+        <script>
+            var ProductId = '{{product.product.id}}'
+            var ProductVersionId = '{{product.id}}'
+            console.log('ProductId', ProductId)
+            console.log('ProductVersion', ProductVersionId)
+
+        </script>
+    </div>
+    <!-- Body main wrapper end -->
+    <!-- QUICKVIEW PRODUCT -->
+    {% endblock %}
+    <!-- END QUICKVIEW PRODUCT -->
+    <!-- Placed js at the end of the document so the pages load faster -->

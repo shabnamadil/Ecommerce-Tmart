@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: Tmart_postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: Tmart_user
+      POSTGRES_PASSWORD: Tmart_password
+      POSTGRES_DB: Tmart_db
+      PGDATA: /data/postgres
+    volumes:
+       - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+    postgres:
+    pgadmin:

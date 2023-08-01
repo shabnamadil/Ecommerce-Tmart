@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+    <title>Tmart-{% trans 'LOGIN' %}</title>
+{% endblock %}
+{% block content %}
+        <!-- End Offset Wrapper -->
+        <!-- Start Login Register Area -->
+        <div class="htc__login__register bg__white ptb--130" style="background: rgba(0, 0, 0, 0) url(images/bg/5.jpg) no-repeat scroll center center / cover ;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <ul class="login__register__menu" role="tablist">
+                            <li role="presentation" class="login active"><a href="#login" role="tab" data-toggle="tab">{% trans 'Login' %}</a></li>
+                            <li role="presentation" class="register"><a href="#register" role="tab" data-toggle="tab">{% trans 'Register' %}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Start Login Register Content -->
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="htc__login__register__wrap">
+                            <!-- Start Single Content -->
+                            <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
+                                <form id="LoginForm"  class="login"  action="{% url 'login_register' %}" method="post"> 
+                                    {% csrf_token %}
+                                    {% include 'messages.html' %}  
+                                    {% for error in login_form.non_field_errors %}
+                                    <div class="row">
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                    </div>                               
+                                    {% endfor %}                                                                  
+                                    {% if login_form.errors %}
+                                        <div class="row">
+                                        {% for field in login_form %}
+                                            {% for error in field.errors %} 
+                                                <div class="alert alert-danger">
+                                                    <strong>{{ error|escape }}</strong>
+                                                </div>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        </div>
+                                    {% endif %}                                 
+                                    {{login_form.username}}                                    
+                                    {{login_form.password}}                                
+                                    <div class="htc__login__btn mt--30">
+                                        <a href=""><input  type="submit" value="{% trans 'LOGIN' %}" name="login"></a>
+                                    </div>
+                                </form>
+                                <div class="tabs__checkbox">
+                                    <span class="forget"><a href="#">{% trans 'Forget Pasword?' %}</a></span>
+                                </div>
+                                <div class="htc__social__connect">
+                                    <h2>{% trans 'Or Login With' %}</h2>
+                                    <ul class="htc__soaial__list">
+                                        <li><a class="bg--twitter" href="#"><i class="zmdi zmdi-twitter"></i></a></li>
+
+                                        <li><a class="bg--instagram" href="{% url 'social:begin' 'instagram' %}"><i class="zmdi zmdi-instagram"></i></a></li>
+
+                                        <li><a class="bg--facebook" href="{% url 'social:begin' 'facebook' %}"><i class="zmdi zmdi-facebook"></i></a></li>
+
+                                        <li><a class="bg--googleplus" href="{% url 'social:begin' 'google-oauth2' %}"><i class="zmdi zmdi-google-plus"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- End Single Content -->
+                            <!-- Start Single Content -->
+                            <div id="register" role="tabpanel" class="single__tabs__panel tab-pane fade">
+                                <form class="login" action="{% url 'register' %}" method="post"> 
+                                    {% include 'messages.html' %}   
+                                    {% for error in registration_form.non_field_errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>                                         
+                                    {% endfor %}                                                                
+                                    {% csrf_token %} 
+                                    {% if registration_form.errors %}
+                                        <div class="row">
+                                        {% for field in registration_form %}
+                                            {% for error in field.errors %} 
+                                                <div class="alert alert-danger">
+                                                    <strong>{{ error|escape }}</strong>
+                                                </div>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        </div>
+                                    {% endif%}
+                                    {{registration_form.username}}
+                                    {{registration_form.email}}                               
+                                    {{registration_form.password1}}                                
+                                    {{registration_form.password2}}                             
+                                    <div class="htc__login__btn">
+                                        <a href=""><input type="submit" value="{% trans 'REGISTER' %}" name="register"></a>
+                                    </div>                                  
+                                </form>
+                                <div class="htc__social__connect">
+                                    <h2>{% trans 'Or Login With' %}</h2>
+                                    <ul class="htc__soaial__list">
+                                        <li><a class="bg--twitter" href="#"><i class="zmdi zmdi-twitter"></i></a></li>
+                                        <li><a class="bg--instagram" href="{% url 'social:begin' 'instagram' %}"><i class="zmdi zmdi-instagram"></i></a></li>
+                                        <li><a class="bg--facebook" href="{% url 'social:begin' 'facebook' %}"><i class="zmdi zmdi-facebook"></i></a></li>
+                                        <li><a class="bg--googleplus" href="{% url 'social:begin' 'google-oauth2' %}"><i class="zmdi zmdi-google-plus"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- End Single Content -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Login Register Content -->
+            </div>
+        </div>
+        <!-- End Login Register Area -->
+        <!-- Start Footer Area -->
+
+        <!-- End Footer Area -->
+        <script src="{% static 'js/api/login.js' %}"></script>
+    </div>
+    {% endblock %}
+    <!-- Body main wrapper end -->
