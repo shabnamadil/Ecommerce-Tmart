@@ -1,6 +1,3 @@
-<div align="center">
-  <img src="banner_image_url" alt="Tmart Logo">
-</div>
 
 # Tmart E-Commerce Website
 
