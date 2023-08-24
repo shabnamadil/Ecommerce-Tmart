@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block title %}
+<title>Tmart-{% trans 'Shop' %}</title>
+{% endblock %}
+{% block content %}
+        <!-- End Offset Wrapper -->
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
+            <div class="ht__bradcaump__wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="bradcaump__inner text-center">
+                                <h2 class="bradcaump-title">{% trans 'Shop Page' %}</h2>
+                                <nav class="bradcaump-inner">
+                                  <a class="breadcrumb-item" href="{% url 'home' %}">{% trans 'Home' %}</a>
+                                  <span class="brd-separetor">/</span>
+                                  <span class="breadcrumb-item active">{% trans 'Shop Page' %}</span>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area --> 
+        <!-- Start Our Product Area -->
+        <section class="htc__product__area shop__page ptb--130 bg__white">
+            <div class="container">
+                <div class="htc__product__container">
+                    <!-- Start Product MEnu -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="filter__menu__container" >                               
+                                <div class="product__menu" id="category">                                
+                                    <!-- {% for c in product_category %}
+                                    <a href="{% url 'shop' %}?category={{c.slug}}">{{c.category_name}}</a>
+                                    {% endfor%}                 -->
+                                </div>                               
+                                <div class="filter__box">
+                                    <a class="filter__menu" href="#">{% trans 'filter' %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Start Filter Menu -->
+                    <div class="filter__wrap">
+                        <div class="filter__cart">
+                            <div class="filter__cart__inner">
+                                <div class="filter__menu__close__btn" id="FilterMenu">
+                                    
+                                </div>
+                                <div class="filter__content">
+                                    <!-- Start Single Content -->
+                                    <div class="fiter__content__inner">
+                                        <div class="single__filter">
+                                            <h2>{% trans 'Sort By' %}</h2>
+                                            <ul class="filter__list" id="filter_cat">
+                                                
+
+                                            </ul>
+                                        </div>
+                                        <div class="single__filter">
+                                            <h2>{% trans 'Size' %}</h2>
+                                            <ul class="filter__list" id="filter_size">
+              
+
+                                            </ul>
+                                        </div>
+                                        <div class="single__filter">
+                                            <h2></h2>
+                                            <ul class="filter__list" id="filter_price">
+                                                
+                                            </ul>
+                                        </div>
+                                        <div class="single__filter">
+                                            <h2>{% trans 'Color' %}</h2>
+                                            <ul class="filter__list sidebar__list" id="filter_color">
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Content -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Filter Menu -->
+                    <!-- End Product MEnu -->
+                    <div class="row">
+                        <div class="product__list another-product-style" id="products">
+                            <!-- Start Single Product -->
+                            <!-- {% for product in product_list %}
+                            <div class="col-md-3 single__pro col-lg-3 cat--1 col-sm-4 col-xs-12">
+                                <div class="product foo">
+                                    <div class="product__inner">
+                                        <div class="pro__thumb">
+                                            {% for p in product.product_version.all %}
+                                                {% if p.in_stock == True %}
+                                                {% if forloop.counter == 1 %}                                                                                
+                                                        <a href="{{p.get_absolute_url}}">
+                                                            <img src="{{p.main_image.url}}" alt="product images">
+                                                        </a>
+                                                {% endif %}
+                                                {% endif %}   
+                                                {% endfor %}                                        
+                                        </div>
+                                        <div class="product__hover__info">
+                                            <ul class="product__action">
+                                                <li><a data-toggle="modal" data-target="#productModal" title="Quick View" class="quick-view modal-view detail-link" href="#"><span class="ti-plus"></span></a></li>
+                                                <li><a title="Add TO Cart" href="cart.html"><span class="ti-shopping-cart"></span></a></li>
+                                                <li><a title="Wishlist" href="wishlist.html"><span class="ti-heart"></span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                                {% for p in product.product_version.all %}
+                                                {% if p.in_stock == True %}
+                                                {% if forloop.counter == 1 %}  
+                                    <div class="product__details">
+                                        <h2><a href="{{p.get_absolute_url}}">{{product.title}}</a></h2>
+                                        <ul class="product__price">
+                                            {% if product.old_price %}
+                                            <li class="old__price">${{product.old_price}}</li>
+                                            {% endif %}
+                                            <li class="new__price">${{product.price}}</li>
+                                        </ul>
+                                    </div>
+                                    {% endif %}
+                                    {% endif %}   
+                                    {% endfor %} 
+                                </div>
+                            </div>
+                            {% endfor %} -->
+                            <!-- End Single Product -->
+
+                        </div>
+                    </div>
+                    <!-- Start Load More BTn -->
+                    <div class="row mt--60">
+                        <div class="col-md-12">
+                            <div class="htc__loadmore__btn" id="load_results">
+                                <button id="load-more-btn" class="blog-load">{% trans 'load more' %}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Load More BTn -->
+                </div>
+            </div>
+        </section>
+        <!-- End Our Product Area -->
+        <!-- Start Footer Area -->
+        
+    
+        <!-- End Footer Area -->
+        <script src="{% static 'js/api/product.js' %}"></script>
+        <script src="{% static 'js/api/cart.js' %}"></script>
+   
+    </div>
+    <!-- Body main wrapper end -->
+    <div id="quickview-wrapper">
+        <!-- Modal -->
+     
+        <!-- END Modal -->
+    </div>
+    
+  
+
+    <!-- Placed js at the end of the document so the pages load faster -->
+    {% endblock %}
+   

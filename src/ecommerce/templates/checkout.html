@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}
+    <title>Tmart-checkout</title>
+{% endblock %}
+{% block content %}
+        <!-- End Offset Wrapper -->
+        <!-- Start Bradcaump area -->
+        <div class="ht__bradcaump__area" style="background: rgba(0, 0, 0, 0) url(images/bg/2.jpg) no-repeat scroll center center / cover ;">
+            <div class="ht__bradcaump__wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="bradcaump__inner text-center">
+                                <h2 class="bradcaump-title">Checkout</h2>
+                                <nav class="bradcaump-inner">
+                                  <a class="breadcrumb-item" href="{% url 'home' %}">Home</a>
+                                  <span class="brd-separetor">/</span>
+                                  <span class="breadcrumb-item active">Checkout</span>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Bradcaump area -->
+        <!-- Start Checkout Area -->
+        <section class="our-checkout-area ptb--120 bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-lg-8">
+                        <div class="ckeckout-left-sidebar">
+                            <!-- Start Checkbox Area -->
+                            <form id="CheckoutForm" method="post">
+                                {% csrf_token %}
+                                <div class="checkout-form">
+                                    <h2 class="section-title-3">Shipping details</h2>
+                                    
+                                    <div class="checkout-form-inner" id="ShippingInfo">
+                                        <div class="single-checkout-box">
+                                            
+                                            {% if not request.user.is_authenticated %}
+                                            <input type="text" name="first_name" placeholder="First Name*">
+                                            <input type="text" name="last_name" placeholder="Last Name*">
+                                            
+                                        </div>
+                                        <div class="single-checkout-box">   
+                                            <input type="text" name="phone_number" placeholder="Phone*">                                       
+                                            <input type="email" name="email" placeholder="Email*">
+                                            {% endif %}                                           
+                                            
+                                        </div>
+                                        
+                                        <div class="single-checkout-box select-option mt--40" >
+                                            <select name="country">
+                                                <option>Country*</option>
+                                                <option>Azerbaijan</option>
+                                                <option>Turkey</option>
+                                                <option>England</option>
+                                                <option>Germany</option>
+                                            </select>
+                                            <input name="state" type="text" placeholder="State*">
+                                            
+                                        </div>
+                                        <div class="single-checkout-box">
+                                            <input name="street_adress" type="text" placeholder="Street Adress*">
+                                            <input name="zipcode" type="text" placeholder="Zip Code*">
+                                        </div>
+                                        <div class="single-checkout-box">
+                                            <textarea name="message" placeholder="Message*"></textarea>
+                                        </div>
+                                        {% if not request.user.is_authenticated %}
+                                        <div class="single-checkout-box checkbox">
+                                            <input id="remind-me" type="checkbox">
+                                            <label for="remind-me"><span></span>Create a Account ?</label>
+                                        </div>
+                                        {% endif %}
+                                        <div id="form-button"  class="single-checkout-box checkbox">
+                                            <button  >CONFIRM & BUY NOW</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                                <!-- End Checkbox Area -->
+                                <!-- Start Payment Box -->
+                                <!-- <div class="payment-form">
+                                    <h2 class="section-title-3">payment details</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur kgjhyt</p>
+                                    <div class="payment-form-inner">
+                                        <div class="single-checkout-box">
+                                            <input name="card_name" type="text" placeholder="Name on Card*">
+                                            <input name="card_number" type="text" placeholder="Card Number*">
+                                        </div>
+                                        <div  class="single-checkout-box select-option">
+                                            <select name="date">
+                                                <option>Date*</option>
+                                                <option>Date</option>
+                                                <option>Date</option>
+                                                <option>Date</option>
+                                                <option>Date</option>
+                                            </select>
+                                            <input name="security_code" type="text" placeholder="Security Code*">
+                                        </div>
+                                    </div>
+                                </div> -->
+                            
+                            <!-- End Payment Box -->
+                            <!-- Start Payment Way -->
+                                
+                                <div id="payment-info" class="our-payment-sestem hidden">
+                                    <h2 class="section-title-3">We  Accept :</h2>
+                                    <ul class="payment-menu">
+                                        <li><img src="{% static 'images/payment/1.jpg' %}" alt="payment-img"></li>
+                                        <li><img src="{% static 'images/payment/2.jpg' %}" alt="payment-img"></li>
+                                        <li><img src="{% static 'images/payment/3.jpg' %}" alt="payment-img"></li>
+                                        <li><img src="{% static 'images/payment/4.jpg' %}" alt="payment-img"></li>
+                                        <li><img src="{% static 'images/payment/5.jpg' %}" alt="payment-img"></li>
+                                    </ul>
+                                    <button><div id="paypal-button-container"></div></button>
+                                                                        
+                                </div>
+                            
+                            <!-- End Payment Way -->
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <div class="checkout-right-sidebar">
+                            <div class="our-important-note">
+                                <h2 class="section-title-3">Note :</h2>
+                                <p class="note-desc">Lorem ipsum dolor sit amet, consectetur adipisici elit, sed do eiusmod tempor incididunt ut laborekf et dolore magna aliqua.</p>
+                                <ul class="important-note">
+                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet</a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet, consectetur nipabali</a></li>
+                                    <li><a href="#"><i class="zmdi zmdi-caret-right-circle"></i>Lorem ipsum dolor sit amet</a></li>
+                                </ul>
+                            </div>
+                            <div class="puick-contact-area mt--60">
+                                <h2 class="section-title-3">Quick Contact</h2>
+                                <a href="phone:+8801722889963">+012 345 678 102 </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Checkout Area -->
+        <!-- Start Footer Area -->
+        <!-- End Footer Area -->
+        <script src="https://www.paypal.com/sdk/js?client-id=AahNAT01UzwgF5aBW4U6OwG7M6euoOFh6NN-pLmo8OimslaTsYBSNELWkAIt0w6wbfYzpIIwGQvblLk0&currency=USD&disable-funding=credit"></script>
+        <script>
+            var total = '{{order.get_cart_total}}'
+            // Render the PayPal button into #paypal-button-container
+            paypal.Buttons({
+    
+                style: {
+                    color:  'blue',
+                    shape:  'rect',
+                },
+    
+                // Set up the transaction
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value:parseFloat(total).toFixed(2)
+                            }
+                        }]
+                    });
+                },
+    
+                // Finalize the transaction
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        // Show a success message to the buyer
+                        submitFormData()
+                    });
+                }
+    
+            }).render('#paypal-button-container');
+        </script>
+        
+        <script src="{% static 'js/api/checkout.js' %}"></script>
+
+    </div>
+{% endblock %}
+    <!-- Body main wrapper end -->
+    <!-- Placed js at the end of the document so the pages load faster -->
+
+    <!-- jquery latest version -->
