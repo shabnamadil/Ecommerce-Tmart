@@ -90,7 +90,6 @@ def login_view(request):
 
 class LoginView(CreateView):
     template_name = 'login-register.html'
-    print(2)
 
     def get(self, request):
         login_form = Authentication()
@@ -103,7 +102,6 @@ class LoginView(CreateView):
     def post(self, request,  *args, **kwargs):
         login_form = Authentication(request, request.POST)
         registration_form = RegistrationForm()
-        print(3)
         
         if login_form.is_valid():
             username = login_form.cleaned_data['username']
@@ -205,10 +203,8 @@ def activate(request, uidb64, token):
 
 
 class LogoutRequestView(LogoutView):
-    print(7)
     next_page = "home"  # Specify the URL name or path to redirect after logout
     template_name = "base.html"  # Specify the template for the logout view
-    print(8)
 
 
 
